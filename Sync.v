@@ -52,8 +52,8 @@ module Sync(
 	reg [10:0] a = 150;         // semi-major axis for the ellipse/hyperbola
 	reg [10:0] b = 80;          // semi-minor axis for the ellipse/hyperbola
 	reg [10:0] p = 50;          // Paramater for the parabola
-	reg [10:0] m = 50;          // Parameter for the straight line
-	reg [10:0] br = 0;          // Parameter for the straight line
+	reg signed [11:0] m = 50;          // Parameter for the straight line
+	reg signed [11:0] br = 0;          // Parameter for the straight line
 	
 	
 	// Conic type
@@ -120,8 +120,8 @@ module Sync(
 					  draw_conic = (eq_value >= -10000000 && eq_value <= 10000000); // Error margin
 				 end
 				 
-				 3'b101: begin // Straight line (x²/a² - y²/b² = 1)
-					  eq_value = y_rel - (200/m)*x_rel - br;
+				 3'b101: begin // Straight line (100x + my + br = 0) 
+					  eq_value = m*y_rel + 100*x_rel + br;
 					  draw_conic = (eq_value >= -25 && eq_value <= 25); // Error margin
 				 end
 				 

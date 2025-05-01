@@ -81,7 +81,7 @@ The system implements a Cartesian coordinate plane centered at (640, 512) on the
     - Ellipse: `x²/a² + y²/b² = 1`
     - Parabola: `x² = 4py`
     - Hyperbola: `x²/a² - y²/b² = 1`
-    - Straight Line: `y = (200/m)x + br`
+    - Straight Line: `100x + my + br = 0`
 
 ## Authors
 Garcia Garcia Aram Jesua
