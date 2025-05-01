@@ -1,0 +1,64 @@
+/**
+*	PRACTICA 2: PROCESADOR MONOCICLO with PS2 Keyboard Integration
+*  Este diseño es un procesador monociclo que se encarga de procesar
+*	graficamente las secciones conicas en un monitor 1280x1024@60
+*	
+*	Autores:
+*	Garcia Garcia Aram Jesua
+*	Hernandez Diaz Roberto Angel
+*	Hernandez Jimenez Irmin
+*	Trejo Flores Johann Daniel
+*	Toral Hernandez Leonardo Javier
+* 
+**/
+
+module Practica2(
+	input 		CLK_50,
+	input 		ps2_clk,    // PS2 keyboard clock
+	input 		ps2_data,   // PS2 keyboard data
+	output 		VGA_HS,
+	output 		VGA_VS,
+	output 		VGA_CLK,
+	output 		VGA_SYNC_N,
+	output 		VGA_BLANK_N,
+	output[7:0] VGA_R,
+	output[7:0] VGA_G,
+	output[7:0] VGA_B
+);
+
+	wire CLK_108, Reset;
+	wire [2:0] CONIC_TYPE;
+	wire [3:0] KEY_SIGNALS;
+
+	assign VGA_BLANK_N = 1'b1;
+	assign VGA_SYNC_N = 1'b1;
+	assign Reset = 1'b0;  // No reset
+	
+	// PS2 Keyboard Controller
+	KeyboardController ps2_controller (
+		.CLOCK_50(CLK_50),
+		.ps2_clk(ps2_clk),
+		.ps2_data(ps2_data),
+		.CONIC_TYPE(CONIC_TYPE),
+		.KEY_SIGNALS(KEY_SIGNALS)
+	);
+	
+	PLL u0 (
+		.clk_in_clk   (CLK_50),   //   clk_in.clk
+		.clk_out1_clk (CLK_108), // clk_out1.clk
+		.clk_out2_clk (VGA_CLK), // clk_out2.clk
+		.reset_reset  (Reset)   //    reset.reset
+	);
+	
+	Sync U1 (
+		.CLK(CLK_108),
+		.CONIC_TYPE(CONIC_TYPE),
+		.KEYS(KEY_SIGNALS),
+		.HSYNC(VGA_HS),
+		.VSYNC(VGA_VS),
+		.R(VGA_R),
+		.G(VGA_G),
+		.B(VGA_B)
+	);
+	
+endmodule

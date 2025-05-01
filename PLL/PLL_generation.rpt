@@ -1,0 +1,30 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate /home/Irmin/Documents/Practica2/PLL.qsys --block-symbol-file --output-directory=/home/Irmin/Documents/Practica2/PLL --family="Cyclone IV E" --part=EP4CE115F29C8L
+Progress: Loading Practica2/PLL.qsys
+Progress: Reading input file
+Progress: Adding altpll_0 [altpll 23.1]
+Progress: Parameterizing module altpll_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: PLL.altpll_0: altpll_0.pll_slave must be connected to an Avalon-MM master
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate /home/Irmin/Documents/Practica2/PLL.qsys --synthesis=VERILOG --output-directory=/home/Irmin/Documents/Practica2/PLL/synthesis --family="Cyclone IV E" --part=EP4CE115F29C8L
+Progress: Loading Practica2/PLL.qsys
+Progress: Reading input file
+Progress: Adding altpll_0 [altpll 23.1]
+Progress: Parameterizing module altpll_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: PLL.altpll_0: altpll_0.pll_slave must be connected to an Avalon-MM master
+Info: PLL: Generating PLL "PLL" for QUARTUS_SYNTH
+Info: altpll_0: "PLL" instantiated altpll "altpll_0"
+Info: PLL: Done "PLL" with 2 modules, 2 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

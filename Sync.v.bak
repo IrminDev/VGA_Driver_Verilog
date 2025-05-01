@@ -1,0 +1,221 @@
+/**
+*	Modulo de sincronizacion
+*  Este modulo es el encargado de sincronizar el generador
+*	de las conicas con el envio de informacion al monitor
+*
+*	000: nada
+*	001: circunferencia
+*	010: parábola
+*	011: elipse
+*	100: hipérbola
+*
+*	Autores:
+*	Garcia Garcia Aram Jesua
+*	Hernandez Diaz Roberto Angel
+*	Hernandez Jimenez Irmin
+*	Trejo Flores Johann Daniel
+*	Toral Hernandez Leonardo Javier
+* 
+**/
+
+module Sync(
+	input       		CLK,
+	input[15:0]  		Data,
+	output reg  		HSYNC,
+	output reg  		VSYNC,
+	output reg[7:0] 	R,
+	output reg[7:0] 	G,
+	output reg[7:0] 	B
+);
+	// Constantes para una mejor legibilidad del codigo
+	parameter H_BP = 48;
+	parameter H_SYNC = 160;
+	parameter H_FP = 408;
+	parameter V_BP = 1;
+	parameter V_SYNC = 4;
+	parameter V_FP = 42;
+	parameter H_TOTAL = 1688;
+	parameter V_TOTAL = 1066;
+
+	// Posicion del pixel
+	reg[10:0] HPOS = 0;
+	reg[10:0] VPOS = 0;
+	
+	// Centro del plano cartesiano (al centro de la pantalla)
+	parameter CENTER_X = 640;
+	parameter CENTER_Y = 512;
+
+	// Parametros para las conicas
+	reg [10:0] radius = 100;    // Radio para circunferencia
+	reg [10:0] a = 150;         // Semieje mayor para elipse/hipérbola
+	reg [10:0] b = 80;          // Semieje menor para elipse/hipérbola
+	reg [10:0] p = 50;          // Parámetro para parábola
+	
+	
+	// Tipo de conica
+	reg[2:0] CONIC_TYPE = 0;
+	
+	/*
+	*
+	*	Funcion para dibujar los ejes coordenados
+	*
+	*/
+	function draw_axes;
+		input [10:0] x;
+		input [10:0] y;
+	begin
+		if(x == CENTER_X || y == CENTER_Y) begin
+			 draw_axes = 1'b1;
+		end else if((x % 50 == 0 && (y >= CENTER_Y-5 && y <= CENTER_Y+5)) || 
+				 (y % 50 == 0 && (x >= CENTER_X-5 && x <= CENTER_X+5))) begin // Marcas cada 50 píxeles, grosor de 10 pixeles
+			 draw_axes = 1'b1;
+		end else begin
+			 draw_axes = 1'b0;
+		end
+	end
+	endfunction
+	
+	/*
+	*
+	*	Funcion para dibujar las conicas
+	*
+	*/
+	function draw_conic;
+		input [10:0] x;
+		input [10:0] y;
+		input [2:0]  conic_type;
+		reg signed [20:0] x_rel, y_rel;
+		reg signed [20:0] eq_value; // Parametro que verifica si se cumple la condicion de la conica
+		begin
+			x_rel = (x-H_FP) - CENTER_X;
+			y_rel = CENTER_Y - (y-V_FP); // Invertir eje Y (debido al orden del trazado)
+			
+			case(conic_type)
+				 3'b001: begin // Circunferencia (x² + y² = r²)
+					  eq_value = x_rel*x_rel + y_rel*y_rel - radius*radius;
+					  draw_conic = (eq_value >= -1000 && eq_value <= 1000); // Margen de error
+				 end
+				 
+				 3'b010: begin // Parábola (y² = 4px)
+					  eq_value = y_rel*y_rel - 4*p*x_rel;
+					  draw_conic = (eq_value >= -500 && eq_value <= 500);
+				 end
+				 
+				 3'b011: begin // Elipse (x²/a² + y²/b² = 1)
+					  eq_value = (x_rel*x_rel)/(a*a) + (y_rel*y_rel)/(b*b) - 1'b1;
+					  draw_conic = (eq_value*10 >= -1 && eq_value/10 <= 1);
+				 end
+				 
+				 3'b100: begin // Hipérbola (x²/a² - y²/b² = 1)
+					  eq_value = (x_rel*x_rel)/(a*a) - (y_rel*y_rel)/(b*b) - 1'b1;
+					  draw_conic = (eq_value*10 >= -1 && eq_value/10 <= 1);
+				 end
+				 
+				 default: draw_conic = 1'b0;
+			endcase
+	  end
+	endfunction
+	
+	//Bloque always que controla el input del teclado
+	always@(Data) begin
+		case(Data)
+			16'h0016: CONIC_TYPE <= 3'b001;
+			16'h001E: CONIC_TYPE <= 3'b010;
+			16'h0026: CONIC_TYPE <= 3'b011;
+			16'h0025: CONIC_TYPE <= 3'b100;
+			default: CONIC_TYPE <= CONIC_TYPE; // Retiene la conica
+	end
+	
+	// Bloque always que controla el VGA
+	always@(posedge CLK) begin
+		if(HPOS >= H_FP && VPOS >= V_FP) begin // Verifica si en las posiciones H y V se puede dibujar
+			if(draw_axes(HPOS, VPOS)) begin // Dibuja los ejes coordenados
+				R <= 8'hFF;
+				G <= 8'hFF;
+				B <= 8'hFF;
+			end else begin
+				if(draw_conic(HPOS, VPOS, CONIC_TYPE)) begin // Dibuja la conica de rojo
+					R <= 8'hFF;
+					G <= 8'h00;
+					B <= 8'h00;
+				end else begin // Fondo negro
+					R <= 8'h00; 
+					G <= 8'h00;		
+					B <= 8'h00;
+				end
+			end
+		end
+		
+		if(HPOS < H_TOTAL) begin
+			HPOS <= HPOS + 1;
+		end else begin
+			HPOS <= 0;
+			if(VPOS < V_TOTAL) begin
+				VPOS <= VPOS + 1;
+			end else begin
+				VPOS <= 0;
+				
+				case(CONIC_TYPE) // Modificar los parametros de las conicas si es necesario en cada nuevo frame
+					3'b001: begin // Ajustar radio de la circunferencia
+						if(Data == 16'hE075) begin
+							radius <= radius + 5;
+						end
+						if(Data == 16'hE072) begin
+							radius <= radius - 5;
+						end
+					end
+
+					3'b010: begin // Ajustar parametro p de la parabola
+						if(Data == 16'hE075) begin
+							p <= p + 5;
+						end
+						if(Data == 16'hE072) begin
+							p <= p - 5;
+						end
+					end
+					3'b011: begin // Ajustar ejes de la elipse
+						if(Data == 16'hE075) begin
+							a <= a + 5;
+						end
+						if(Data == 16'hE072) begin
+							a <= a - 5;
+						end
+						if(Data == 16'hE074) begin
+							b <= b + 5;
+						end
+						if(Data == 16'hE06B) begin
+							b <= b - 5;
+						end
+					end
+					3'b100: begin // Ajustar ejes de la hiperbola
+						if(Data == 16'hE075) begin
+							a <= a + 5;
+						end
+						if(Data == 16'hE072) begin
+							a <= a - 5;
+						end
+						if(Data == 16'hE074) begin
+							b <= b + 5;
+						end
+						if(Data == 16'hE06B) begin
+							b <= b - 5;
+						end
+					end
+				endcase
+			end 	
+		end
+		
+		if(HPOS > H_BP & HPOS < H_SYNC) begin
+			HSYNC <= 0;
+		end else begin
+			HSYNC <= 1;
+		end
+		
+		if(VPOS > V_BP & VPOS < V_SYNC) begin
+			VSYNC <= 0;
+		end else begin
+			VSYNC <= 1;
+		end
+	end
+
+endmodule

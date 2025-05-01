@@ -1,0 +1,29 @@
+
+State Machine - |Practica2|LCD:lcdCtrl|CurrentState
+Name CurrentState.L2 CurrentState.L1 CurrentState.ASK3 CurrentState.MSG2 CurrentState.ASK2 CurrentState.MSG1 CurrentState.ASK1 CurrentState.ENTRY CurrentState.D_ON CurrentState.LCD_INI CurrentState.D_OFF CurrentState.LCD_CLR 
+CurrentState.LCD_CLR 0 0 0 0 0 0 0 0 0 0 0 0 
+CurrentState.D_OFF 0 0 0 0 0 0 0 0 0 0 1 1 
+CurrentState.LCD_INI 0 0 0 0 0 0 0 0 0 1 0 1 
+CurrentState.D_ON 0 0 0 0 0 0 0 0 1 0 0 1 
+CurrentState.ENTRY 0 0 0 0 0 0 0 1 0 0 0 1 
+CurrentState.ASK1 0 0 0 0 0 0 1 0 0 0 0 1 
+CurrentState.MSG1 0 0 0 0 0 1 0 0 0 0 0 1 
+CurrentState.ASK2 0 0 0 0 1 0 0 0 0 0 0 1 
+CurrentState.MSG2 0 0 0 1 0 0 0 0 0 0 0 1 
+CurrentState.ASK3 0 0 1 0 0 0 0 0 0 0 0 1 
+CurrentState.L1 0 1 0 0 0 0 0 0 0 0 0 1 
+CurrentState.L2 1 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |Practica2|LCD:lcdCtrl|NextState
+Name NextState.L2 NextState.L1 NextState.ASK3 NextState.MSG2 NextState.ASK2 NextState.MSG1 NextState.ASK1 NextState.ENTRY NextState.D_ON NextState.LCD_CLR NextState.D_OFF 
+NextState.D_OFF 0 0 0 0 0 0 0 0 0 0 0 
+NextState.LCD_CLR 0 0 0 0 0 0 0 0 0 1 1 
+NextState.D_ON 0 0 0 0 0 0 0 0 1 0 1 
+NextState.ENTRY 0 0 0 0 0 0 0 1 0 0 1 
+NextState.ASK1 0 0 0 0 0 0 1 0 0 0 1 
+NextState.MSG1 0 0 0 0 0 1 0 0 0 0 1 
+NextState.ASK2 0 0 0 0 1 0 0 0 0 0 1 
+NextState.MSG2 0 0 0 1 0 0 0 0 0 0 1 
+NextState.ASK3 0 0 1 0 0 0 0 0 0 0 1 
+NextState.L1 0 1 0 0 0 0 0 0 0 0 1 
+NextState.L2 1 0 0 0 0 0 0 0 0 0 1 

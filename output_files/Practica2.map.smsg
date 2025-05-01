@@ -1,0 +1,2 @@
+Info (10281): Verilog HDL Declaration information at Sync.v(28): object "B" differs only in case from object "b" in the same scope File: /home/Irmin/Documents/Practica2/Sync.v Line: 28
+Warning (10268): Verilog HDL information at LCD.v(165): always construct contains both blocking and non-blocking assignments File: /home/Irmin/Documents/Practica2/LCD.v Line: 165

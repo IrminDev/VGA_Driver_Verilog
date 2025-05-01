@@ -1,0 +1,149 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1000mV 85C Model Setup 'u0|altpll_0|sd1|pll7|clk[0]'
+Slack : -41.063
+TNS   : -1480.316
+
+Type  : Slow 1000mV 85C Model Setup 'Keyboard:Kb|data_reg[0]'
+Slack : -9.117
+TNS   : -26.307
+
+Type  : Slow 1000mV 85C Model Setup 'LCD:lcdCtrl|CLK_DLY'
+Slack : -6.600
+TNS   : -106.323
+
+Type  : Slow 1000mV 85C Model Setup 'CLK_50'
+Slack : -1.569
+TNS   : -19.549
+
+Type  : Slow 1000mV 85C Model Hold 'Keyboard:Kb|data_reg[0]'
+Slack : 0.305
+TNS   : 0.000
+
+Type  : Slow 1000mV 85C Model Hold 'LCD:lcdCtrl|CLK_DLY'
+Slack : 0.514
+TNS   : 0.000
+
+Type  : Slow 1000mV 85C Model Hold 'CLK_50'
+Slack : 0.517
+TNS   : 0.000
+
+Type  : Slow 1000mV 85C Model Hold 'u0|altpll_0|sd1|pll7|clk[0]'
+Slack : 0.535
+TNS   : 0.000
+
+Type  : Slow 1000mV 85C Model Minimum Pulse Width 'LCD:lcdCtrl|CLK_DLY'
+Slack : -1.763
+TNS   : -49.364
+
+Type  : Slow 1000mV 85C Model Minimum Pulse Width 'Keyboard:Kb|data_reg[0]'
+Slack : -0.206
+TNS   : -1.482
+
+Type  : Slow 1000mV 85C Model Minimum Pulse Width 'u0|altpll_0|sd1|pll7|clk[0]'
+Slack : 4.293
+TNS   : 0.000
+
+Type  : Slow 1000mV 85C Model Minimum Pulse Width 'CLK_50'
+Slack : 9.704
+TNS   : 0.000
+
+Type  : Slow 1000mV 0C Model Setup 'u0|altpll_0|sd1|pll7|clk[0]'
+Slack : -38.404
+TNS   : -1381.523
+
+Type  : Slow 1000mV 0C Model Setup 'Keyboard:Kb|data_reg[0]'
+Slack : -8.913
+TNS   : -25.745
+
+Type  : Slow 1000mV 0C Model Setup 'LCD:lcdCtrl|CLK_DLY'
+Slack : -6.272
+TNS   : -102.285
+
+Type  : Slow 1000mV 0C Model Setup 'CLK_50'
+Slack : -1.479
+TNS   : -17.482
+
+Type  : Slow 1000mV 0C Model Hold 'Keyboard:Kb|data_reg[0]'
+Slack : 0.284
+TNS   : 0.000
+
+Type  : Slow 1000mV 0C Model Hold 'CLK_50'
+Slack : 0.497
+TNS   : 0.000
+
+Type  : Slow 1000mV 0C Model Hold 'LCD:lcdCtrl|CLK_DLY'
+Slack : 0.504
+TNS   : 0.000
+
+Type  : Slow 1000mV 0C Model Hold 'u0|altpll_0|sd1|pll7|clk[0]'
+Slack : 0.515
+TNS   : 0.000
+
+Type  : Slow 1000mV 0C Model Minimum Pulse Width 'LCD:lcdCtrl|CLK_DLY'
+Slack : -1.763
+TNS   : -49.364
+
+Type  : Slow 1000mV 0C Model Minimum Pulse Width 'Keyboard:Kb|data_reg[0]'
+Slack : -0.257
+TNS   : -1.778
+
+Type  : Slow 1000mV 0C Model Minimum Pulse Width 'u0|altpll_0|sd1|pll7|clk[0]'
+Slack : 4.292
+TNS   : 0.000
+
+Type  : Slow 1000mV 0C Model Minimum Pulse Width 'CLK_50'
+Slack : 9.669
+TNS   : 0.000
+
+Type  : Fast 1000mV 0C Model Setup 'u0|altpll_0|sd1|pll7|clk[0]'
+Slack : -18.768
+TNS   : -762.098
+
+Type  : Fast 1000mV 0C Model Setup 'Keyboard:Kb|data_reg[0]'
+Slack : -5.189
+TNS   : -14.928
+
+Type  : Fast 1000mV 0C Model Setup 'LCD:lcdCtrl|CLK_DLY'
+Slack : -3.622
+TNS   : -50.657
+
+Type  : Fast 1000mV 0C Model Setup 'CLK_50'
+Slack : -0.752
+TNS   : -6.257
+
+Type  : Fast 1000mV 0C Model Hold 'Keyboard:Kb|data_reg[0]'
+Slack : 0.141
+TNS   : 0.000
+
+Type  : Fast 1000mV 0C Model Hold 'CLK_50'
+Slack : 0.255
+TNS   : 0.000
+
+Type  : Fast 1000mV 0C Model Hold 'LCD:lcdCtrl|CLK_DLY'
+Slack : 0.274
+TNS   : 0.000
+
+Type  : Fast 1000mV 0C Model Hold 'u0|altpll_0|sd1|pll7|clk[0]'
+Slack : 0.291
+TNS   : 0.000
+
+Type  : Fast 1000mV 0C Model Minimum Pulse Width 'LCD:lcdCtrl|CLK_DLY'
+Slack : -1.763
+TNS   : -49.364
+
+Type  : Fast 1000mV 0C Model Minimum Pulse Width 'Keyboard:Kb|data_reg[0]'
+Slack : 0.146
+TNS   : 0.000
+
+Type  : Fast 1000mV 0C Model Minimum Pulse Width 'u0|altpll_0|sd1|pll7|clk[0]'
+Slack : 4.390
+TNS   : 0.000
+
+Type  : Fast 1000mV 0C Model Minimum Pulse Width 'CLK_50'
+Slack : 9.567
+TNS   : 0.000
+
+------------------------------------------------------------
